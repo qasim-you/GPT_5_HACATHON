@@ -17,6 +17,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
+import PlagiarismChecker from "@/components/plagiarism-checker"
 
 interface AnalysisResult {
   id: string
@@ -96,9 +97,6 @@ export default function HomePage() {
 
   const handleViewChange = (view: string) => {
     setCurrentView(view)
-    if (view === "research") {
-      // Auto-switch to research tab when coming from sidebar
-    }
   }
 
   const renderCurrentView = () => {
@@ -123,6 +121,8 @@ export default function HomePage() {
         )
       case "citations":
         return <CitationManager citations={allCitations} />
+      case "plagiarism":
+        return <PlagiarismChecker />
       default:
         return <DashboardOverview stats={dashboardStats} />
     }
@@ -130,7 +130,7 @@ export default function HomePage() {
 
   return (
     <>
-<AppSidebar onViewChange={handleViewChange} currentView={currentView} />
+      <AppSidebar onViewChange={handleViewChange} currentView={currentView} />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
           <div className="flex items-center gap-2 px-4">
@@ -147,10 +147,12 @@ export default function HomePage() {
                     {currentView === "dashboard"
                       ? "Dashboard"
                       : currentView === "research"
-                        ? "Research"
-                        : currentView === "citations"
-                          ? "Citations"
-                          : "Dashboard"}
+                      ? "Research"
+                      : currentView === "citations"
+                      ? "Citations"
+                      : currentView === "plagiarism"
+                      ? "Plagiarism Checker"
+                      : "Dashboard"}
                   </BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
@@ -163,8 +165,8 @@ export default function HomePage() {
             <div className="text-center space-y-4 mb-8">
               <h1 className="text-3xl lg:text-4xl font-bold font-mono text-foreground">AI Research Assistant</h1>
               <p className="text-base lg:text-lg text-muted-foreground max-w-2xl mx-auto">
-                Upload your documents and get AI-powered insights, ask questions, and receive verified citations for
-                your research.
+                Upload your documents and get AI-powered insights, ask questions, check plagiarism, and receive verified
+                citations for your research.
               </p>
             </div>
           )}

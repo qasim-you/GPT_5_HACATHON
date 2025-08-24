@@ -58,6 +58,14 @@ export function AppSidebar({ onViewChange, currentView, ...props }: {
           >
             <Quote className="h-4 w-4" /> Citations
           </button>
+           <button
+            className={`flex items-center gap-2 px-4 py-2 w-full text-left rounded-md ${
+              currentView === "citations" ? "bg-accent text-accent-foreground" : "hover:bg-muted"
+            }`}
+            onClick={() => onViewChange("plagiarism")}
+          >
+            <Quote className="h-4 w-4" /> Plagiarism
+          </button>
         </div>
       </SidebarContent>
       <SidebarFooter>
